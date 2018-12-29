@@ -1,7 +1,7 @@
 p0 = 101325*80;     % Chamber pressure
 safety_marg = 2;    % Safety margin for yield strenght
-d_eng = 0.06;       % Engine diameter
-l_eng = 0.35;       % Engine lenght
+d_eng = 0.035;       % Engine diameter
+l_eng = 0.4;       % Engine lenght
 
 [dc, de, m_dot, t_burn, T] = area(p0, d_eng, l_eng);
 
@@ -9,9 +9,8 @@ l_eng = 0.35;       % Engine lenght
 
 [m1, m2, m3, m4] = mass(m_dot, t_burn, d_eng, l_eng, t1, t2, t3, t4);
 
-Type = {'Engine Lenght - m'; 'Engine Diameter - cm'; 'Nozzle (Throat diameter) - cm'; 'Nozzle (Exit diameter) - cm'; 'Chamber Pressure - atm'; 'Thrust - N'; 'Burn Time - s'};
-Data_SI = [l_eng; d_eng*100; dc*100; de*100; p0/101325; T; t_burn];
-T = table(Type, Data_SI)
+Type = {'Engine Lenght', 'Engine Diameter', 'Nozzle (Throat)', 'Nozzle (Exit)', 'Chamber Pressure', 'Thru'}
+T = 
 
 function [al_6, al_2, st_38, st_14] = thick(p0, safe, d_eng)
 
