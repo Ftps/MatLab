@@ -4,14 +4,14 @@ d_eng = 0.050;          % Engine diameter
 l_eng = 0.400;          % Engine lenght
 d_core = 0.015;         % Core Diameter
 
-[dc, de, m_dot, t_burn, T, isp, r] = area(p_in, d_eng, l_eng, d_core);
+[dc, de, m_dot, t_burn, T, isp, r, imp] = area(p_in, d_eng, l_eng, d_core);
 
 [t1, t2, t3, t4] = thick(p_in, safety_marg, d_eng);
 
 [m1, m2, m3, m4] = mass(m_dot, t_burn, d_eng, l_eng, t1, t2, t3, t4);
 
-Type = {'Engine Lenght - cm'; 'Engine Diameter - cm'; 'Nozzle (Throat diameter) - cm'; 'Nozzle (Exit diameter) - cm'; 'Chamber Pressure - atm'; 'Thrust - N'; 'Burn Time - s'; 'Specific Impulse - s'; 'Fuel Mass - kg'};
-Data = [l_eng*100; d_eng*100; dc*100; de*100; p_in/101325; T; t_burn; isp; m1(2)];
+Type = {'Engine Lenght - cm'; 'Engine Diameter - cm'; 'Fuel Mass - kg'; 'Nozzle (Throat diameter) - cm'; 'Nozzle (Exit diameter) - cm'; 'Chamber Pressure - atm'; 'Thrust - N'; 'Burn Time - s'; 'Specific Impulse - s'; 'Impulse - Ns'};
+Data = [l_eng*100; d_eng*100; m1(2); dc*100; de*100; p_in/101325; T; t_burn; isp; imp];
 T = table(Data, 'RowNames', Type)
 
 function b = burn_rate(p0)
@@ -34,7 +34,7 @@ function [al_6, al_2, st_38, st_14] = thick(p0, safe, d_eng)
     
 end
 
-function [dc, de, m_dot, t_burn, T, isp, r] = area(p0, d_eng, l_eng, d_core)
+function [dc, de, m_dot, t_burn, T, isp, r, imp] = area(p0, d_eng, l_eng, d_core)
 
     R = 208.5919;       % Ideal gas constant for this mixture
     T0 = 1600;          % Nakka burn temperature of KN-Sorbitol propellant
@@ -61,6 +61,7 @@ function [dc, de, m_dot, t_burn, T, isp, r] = area(p0, d_eng, l_eng, d_core)
     isp = Me*sqrt(k*R*Te)/g;
     
     T = m_dot*Me*sqrt(k*R*Te);
+    imp = T*t_burn;
 end
 
 function [ma6, ma2, ms38, ms14] = mass(m_dot, t_burn, d_eng, l_eng, t1, t2, t3, t4)
