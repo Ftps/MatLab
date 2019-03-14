@@ -1,8 +1,8 @@
-p_in = 101325*65;       % Chamber pressure
-safety_marg = 3;        % Safety margin for yield strenght
-d_eng = 0.050;          % Engine diameter
-l_eng = 0.400;          % Engine lenght
-d_core = 0.015;         % Core Diameter
+p_in = 101325*30;       % Chamber pressure
+safety_marg = 2;        % Safety margin for yield strenght
+d_eng = 0.065;          % Engine diameter
+l_eng = 0.300;          % Engine lenght
+d_core = 0.02;         % Core Diameter
 
 [dc, de, m_dot, t_burn, T, isp, r] = area(p_in, d_eng, l_eng, d_core);
 
